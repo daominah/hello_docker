@@ -1,0 +1,16 @@
+Kafka
+
+Topic
+./kafka-topics.sh --list --bootstrap-server localhost:9092
+export TOPIC=news.sync
+./kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic $TOPIC
+
+Get offset
+./kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic $TOPIC
+
+Consumer
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic $TOPIC --from-beginning
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic $TOPIC --partition 0 --offset 5
+
+Producer
+./kafka-console-producer.sh --broker-list localhost:9092 --topic test
