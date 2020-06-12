@@ -16,6 +16,7 @@ relay_log_info_repository=TABLE
 
 # Shared replication group configuration
 plugin_load_add="group_replication.so"
+transaction_write_set_extraction=XXHASH64
 group_replication_group_name="959cf631-538c-415d-8164-ca00181be227"
 group_replication_start_on_boot=on
 #group_replication_single_primary_mode=off
