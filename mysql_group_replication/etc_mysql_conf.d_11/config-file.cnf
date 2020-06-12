@@ -1,0 +1,34 @@
+[mysqld]
+
+
+disabled_storage_engines="MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY"
+
+
+gtid_mode=ON
+enforce_gtid_consistency=ON
+binlog_checksum=NONE
+log_bin=binlog
+log_slave_updates=ON
+binlog_format=ROW
+master_info_repository=TABLE
+relay_log_info_repository=TABLE
+
+
+# Shared replication group configuration
+plugin_load_add="group_replication.so"
+group_replication_group_name="959cf631-538c-415d-8164-ca00181be227"
+group_replication_start_on_boot=on
+#group_replication_single_primary_mode=off
+#group_replication_enforce_update_everywhere_checks=ON
+group_replication_group_seeds="172.19.0.11:33061,172.19.0.12:33061,172.19.0.13:33061"
+group_replication_bootstrap_group=off
+
+
+# Host specific replication configuration
+server_id=11
+group_replication_local_address="172.19.0.11:33061"
+report_host="172.19.0.11"
+
+
+# testing
+default-authentication-plugin=mysql_native_password
