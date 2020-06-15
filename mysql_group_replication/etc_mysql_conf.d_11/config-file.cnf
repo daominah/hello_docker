@@ -33,3 +33,4 @@ report_host="172.19.0.11"
 
 # testing
 default-authentication-plugin=mysql_native_password
+#super_read_only=off
