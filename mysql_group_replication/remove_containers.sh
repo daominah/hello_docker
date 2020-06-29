@@ -6,5 +6,6 @@ do
     docker stop -t 1 $NAME_PRE$SERVER_ID
     docker rm $NAME_PRE$SERVER_ID
     rm -rf etc_mysql_conf.d_$SERVER_ID
+    rm -rf first_time_etc_mysql_conf.d_$SERVER_ID
     sudo rm -rf var_lib_mysql_$SERVER_ID
 done
