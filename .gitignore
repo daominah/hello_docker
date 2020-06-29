@@ -3,4 +3,5 @@
 .vscode
 
 
+etc_mysql_conf.d_*
 var_lib_mysql_*
