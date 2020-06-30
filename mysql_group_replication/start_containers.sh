@@ -19,7 +19,7 @@ export CONFIG_DIR_S2=$PWD/step2_replication_on_boot
 export DOCKER_IMAGE=mysqlgroup
 export CTN_NAME=mysqlgroup
 
-set +x
+#set +x
 
 # init MySQL data directory,
 # this is a workaround for MySQL ignore plugin_load at initiation
@@ -49,11 +49,14 @@ mkdir -p $CONFIG_DIR_S1_CLONED
 envsubst < "${CONFIG_DIR_S1}/config-file.cnf" \
     > "${CONFIG_DIR_S1_CLONED}/config-file.cnf"
 docker run -d --name=${CTN_NAME}_${SERVER_IDS[0]}_step1 \
-    --net=mysql_group --ip=$HOST --hostname=${CTN_NAME}_${SERVER_IDS[0]} \
-     -v ${CONFIG_DIR_S1_CLONED}:/etc/mysql/conf.d \
-     -v ${DATA_DIR}_${SERVER_IDS[0]}:/var/lib/mysql \
-     -e MYSQL_ROOT_PASSWORD=$MY_PASSWORD $DOCKER_IMAGE
+    --net=mysql_group \
+    --ip=$HOST_S1 --hostname=${CTN_NAME}_${SERVER_IDS[0]} \
+    -v ${CONFIG_DIR_S1_CLONED}:/etc/mysql/conf.d \
+    -v ${DATA_DIR}_${SERVER_IDS[0]}:/var/lib/mysql \
+    -e MYSQL_ROOT_PASSWORD=$MY_PASSWORD $DOCKER_IMAGE
+sleep 3
 docker exec ${CTN_NAME}_${SERVER_IDS[0]}_step1 mysql -uroot -p$MY_PASSWORD -e "SET GLOBAL group_replication_bootstrap_group=ON; START GROUP_REPLICATION; SET GLOBAL group_replication_bootstrap_group=OFF;"
+sleep 3
 docker stop ${CTN_NAME}_${SERVER_IDS[0]}_step1
 
 # add members to the group
@@ -68,9 +71,14 @@ do
         > ${CONFIG_DIR}/config-file.cnf
 
     docker run -d --name=${CTN_NAME}_${SERVER_IDS[i]} \
-        --net=mysql_group --ip=$HOST \
-        --hostname=${CTN_NAME}_${SERVER_IDS[i]} \
-        -v $CONFIG_DIR:/etc/mysql/conf.d -v \
+        --net=mysql_group \
+        --ip=$HOST --hostname=${CTN_NAME}_${SERVER_IDS[i]} \
+        -v $CONFIG_DIR:/etc/mysql/conf.d \
         -v ${DATA_DIR}_${SERVER_IDS[0]}:/var/lib/mysql \
         -e MYSQL_ROOT_PASSWORD=$MY_PASSWORD $DOCKER_IMAGE
+
+    # joining multiple members at the same time is not supported
+    sleep 3
 done
+
+set +x
