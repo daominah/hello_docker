@@ -1,9 +1,8 @@
 [mysqld]
 
-disabled_storage_engines="MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY"
-
 # MySQL Group Replication requirements
-server_id=${SERVER_ID}
+
+disabled_storage_engines="MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY"
 gtid_mode=ON
 enforce_gtid_consistency=ON
 binlog_checksum=NONE
