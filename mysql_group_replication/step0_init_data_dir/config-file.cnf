@@ -3,7 +3,7 @@
 # MySQL Group Replication requirements
 
 disabled_storage_engines="MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY"
-gtid_mode=ON
+gtid_mode=OFF
 enforce_gtid_consistency=ON
 binlog_checksum=NONE
 

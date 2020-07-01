@@ -7,12 +7,12 @@ gtid_mode=ON
 enforce_gtid_consistency=ON
 binlog_checksum=NONE
 
-server_id=${SERVER_ID_S1}
+server_id=${SERVER_ID}
 
 # MySQL Group Replication settings
 
 plugin_load_add='group_replication.so'
-group_replication_group_name="01e570c4-35c8-475a-bce0-d40dfcaa91c1"
+group_replication_group_name=${GROUP_NAME}
 
 # bootstrap should only be done by a single server and only once,
 # have to start by `START GROUP_REPLICATION` when the instance is running
@@ -23,7 +23,7 @@ group_replication_bootstrap_group=off
 # to "on" so that Group Replication starts automatically upon server boot
 group_replication_start_on_boot=off
 
-group_replication_local_address="${HOST_S1}:33061"
+group_replication_local_address="${HOST}:33061"
 group_replication_group_seeds="${GROUP_SEEDS}"
 
 # Security?
