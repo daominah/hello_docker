@@ -98,7 +98,7 @@ done
 
 for i in ${!SERVER_IDS[@]}
 do
-    docker exec ${CTN_NAME}_${SERVER_IDS[i]} /step2_group_on_boot.sh
+    docker exec ${CTN_NAME}_${SERVER_IDS[i]} bash /step2_group_on_boot.sh
 done
 
 set +x
