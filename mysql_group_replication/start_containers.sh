@@ -22,6 +22,7 @@ export CONFIG_DIR_S1=$PWD/step1_bootstrap_group
 export CONFIG_DIR_S2=$PWD/step2_replication_on_boot
 export DOCKER_IMAGE=mysqlgroup
 export CTN_NAME=mysqlgroup
+export NETWORK_NAME=mysqlgroup
 
 #set +x
 
@@ -59,8 +60,8 @@ do
     envsubst < "${CONFIG_DIR_S1}/config-file.cnf" \
         > "${CONFIG_DIR_S1_CLONED}/config-file.cnf"
     docker run -d --name=${CTN_NAME}_${SERVER_IDS[i]} \
-        --net=mysql_group \
-        --ip=$HOST --hostname=${CTN_NAME}_${SERVER_IDS[i]} \
+        --net=${NETWORK_NAME} \
+        --hostname=${HOSTS[i]} \
         -v ${CONFIG_DIR_S1_CLONED}:/etc/mysql/conf.d \
         -v ${DATA_DIR}_${SERVER_IDS[i]}:/var/lib/mysql \
         -e MYSQL_ROOT_PASSWORD=$ROOT_PW $DOCKER_IMAGE
@@ -92,9 +93,10 @@ done
 #
 # edit config group_replication_start_on_boot
 #
-#for i in ${!SERVER_IDS[@]}
-#do
-#    echo "TODO"
-#done
+
+for i in ${!SERVER_IDS[@]}
+do
+    docker exec ${CTN_NAME}_${SERVER_IDS[i]} /step2_group_on_boot.sh
+done
 
 set +x

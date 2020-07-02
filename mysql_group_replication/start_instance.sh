@@ -95,9 +95,10 @@ done
 #
 # edit config group_replication_start_on_boot
 #
-#for i in ${!SERVER_IDS[@]}
-#do
-#    echo "TODO"
-#done
+
+for i in ${!SERVER_IDS[@]}
+do
+    docker exec ${CTN_NAME}_${SERVER_IDS[i]} /step2_group_on_boot.sh
+done
 
 set +x
