@@ -25,8 +25,10 @@ export CTN_NAME=mysqlgroup
 
 #set +x
 
-# init MySQL data directory,
-# this is a workaround for MySQL ignore plugin_load at initiation
+#
+# init MySQL data directory, this is a workaround for MySQL ignore
+# plugin_load at initiation
+#
 
 for i in ${!SERVER_IDS[@]}
 do
@@ -44,7 +46,9 @@ do
     docker stop ${CTN_NAME}_${SERVER_IDS[i]}_step0
 done
 
+#
 # bootstrap group should only be done by a single server and only once
+#
 
 for i in ${!SERVER_IDS[@]}
 do
@@ -84,5 +88,13 @@ do
     fi
     sleep 1
 done
+
+#
+# edit config group_replication_start_on_boot
+#
+#for i in ${!SERVER_IDS[@]}
+#do
+#    echo "TODO"
+#done
 
 set +x
