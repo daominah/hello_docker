@@ -4,5 +4,4 @@
 
 step0_init_data_dir_*
 step1_bootstrap_group_*
-step2_replication_on_boot_*
 var_lib_mysql_*

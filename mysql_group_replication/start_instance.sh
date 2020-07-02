@@ -20,7 +20,6 @@ export RPL_PW=123qwe
 export DATA_DIR=$PWD/var_lib_mysql
 export CONFIG_DIR_S0=$PWD/step0_init_data_dir
 export CONFIG_DIR_S1=$PWD/step1_bootstrap_group
-export CONFIG_DIR_S2=$PWD/step2_replication_on_boot
 export DOCKER_IMAGE=mysqlgroup
 export CTN_NAME=mysqlgroup
 export NETWORK_NAME=host
