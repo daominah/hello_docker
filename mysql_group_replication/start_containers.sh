@@ -62,17 +62,15 @@ do
         -e MYSQL_ROOT_PASSWORD=$ROOT_PW $DOCKER_IMAGE
     sleep 5
 
-    if ((i == 0)); then
-        # q0="SET SQL_LOG_BIN=0;"
-        q0+="CREATE USER ${RPL_USER_H} IDENTIFIED BY '${RPL_PW}';"
-        q0+="GRANT REPLICATION SLAVE ON *.* TO ${RPL_USER_H};"
-        q0+="GRANT BACKUP_ADMIN ON *.* TO ${RPL_USER_H};"
-        q0+="FLUSH PRIVILEGES;"
-        # q0+="SET SQL_LOG_BIN=1;"
-        q0+="CHANGE MASTER TO MASTER_USER='$RPL_USER',  MASTER_PASSWORD='${RPL_PW}' FOR CHANNEL 'group_replication_recovery';"
-        docker exec ${CTN_NAME}_${SERVER_IDS[i]} \
-            mysql -uroot -p$ROOT_PW -e "$q0"
-    fi
+    q0="SET SQL_LOG_BIN=0;"
+    q0+="CREATE USER ${RPL_USER_H} IDENTIFIED BY '${RPL_PW}';"
+    q0+="GRANT REPLICATION SLAVE ON *.* TO ${RPL_USER_H};"
+    q0+="GRANT BACKUP_ADMIN ON *.* TO ${RPL_USER_H};"
+    q0+="FLUSH PRIVILEGES;"
+    q0+="SET SQL_LOG_BIN=1;"
+    q0+="CHANGE MASTER TO MASTER_USER='$RPL_USER',  MASTER_PASSWORD='${RPL_PW}' FOR CHANNEL 'group_replication_recovery';"
+    docker exec ${CTN_NAME}_${SERVER_IDS[i]} \
+        mysql -uroot -p$ROOT_PW -e "$q0"
 
     if ((i == 0)); then
         q1="SET GLOBAL group_replication_bootstrap_group=ON;"
