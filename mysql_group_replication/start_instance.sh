@@ -2,23 +2,26 @@ set -x
 
 # SERVER_ID is an integer
 export SERVER_IDS=(188 101 102)
-export HOSTS=(10.100.22.188 10.100.50.101 10.100.50.102)
 export THIS_COMPUTER=188
+export HOSTS=(10.100.22.188 10.100.50.101 10.100.50.102)
+export ROOT_PW_MYSQL=123qwe
+export NETWORK_NAME_DOCKER=host
+export GROUP_NAME="e4bff544-c8ed-4136-90d6-ac8b9dd10a9a"
+
 export GROUP_SEEDS=""
 for i in ${!SERVER_IDS[@]}
 do
     export GROUP_SEEDS+="${HOSTS[i]}:33061,"
 done
 export GROUP_SEEDS=${GROUP_SEEDS::-1}
-export GROUP_NAME="e4bff544-c8ed-4136-90d6-ac8b9dd10a9a"
 
-export ROOT_PW=123qwe
-export ROOT_DOCKER_OPTION="-e MYSQL_ROOT_PASSWORD=$ROOT_PW"
-export ROOT_EXEC="-uroot -p${ROOT_PW}"
-if [ -z "${ROOT_PW}" ]; then
+export ROOT_DOCKER_OPTION="-e MYSQL_ROOT_PASSWORD=$ROOT_PW_MYSQL"
+export ROOT_EXEC="-uroot -p${ROOT_PW_MYSQL}"
+if [ -z "${ROOT_PW_MYSQL}" ]; then
     export ROOT_DOCKER_OPTION="-e MYSQL_ALLOW_EMPTY_PASSWORD=true"
     export ROOT_EXEC=""
 fi
+
 export RPL_USER=rpl_user
 export RPL_USER_H="${RPL_USER}@'%'"
 export RPL_PW=123qwe
@@ -27,7 +30,7 @@ export CONFIG_DIR_S0=$PWD/step0_init_data_dir
 export CONFIG_DIR_S1=$PWD/step1_bootstrap_group
 export DOCKER_IMAGE=mysqlgroup
 export CTN_NAME=mysqlgroup
-export NETWORK_NAME=host
+
 
 #set +x
 
@@ -66,7 +69,7 @@ if ((${SERVER_IDS[i]}==${THIS_COMPUTER})); then
     envsubst < "${CONFIG_DIR_S1}/config-file.cnf" \
         > "${CONFIG_DIR_S1_CLONED}/config-file.cnf"
     docker run -d --name=${CTN_NAME}_${SERVER_IDS[i]} \
-        --net=${NETWORK_NAME} \
+        --net=${NETWORK_NAME_DOCKER} \
         --hostname=${HOSTS[i]} \
         -v ${CONFIG_DIR_S1_CLONED}:/etc/mysql/conf.d \
         -v ${DATA_DIR}_${SERVER_IDS[i]}:/var/lib/mysql \
