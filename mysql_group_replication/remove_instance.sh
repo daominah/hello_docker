@@ -13,4 +13,6 @@ do
     sudo rm -rf $PWD/var_lib_mysql_${SERVER_IDS[i]}
 done
 
+docker ps -a | grep mysqlgroup
+
 set +x

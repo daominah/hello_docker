@@ -13,6 +13,12 @@ export GROUP_SEEDS=${GROUP_SEEDS::-1}
 export GROUP_NAME="e4bff544-c8ed-4136-90d6-ac8b9dd10a9a"
 
 export ROOT_PW=123qwe
+export ROOT_DOCKER_OPTION="-e MYSQL_ROOT_PASSWORD=$ROOT_PW"
+export ROOT_EXEC="-uroot -p${ROOT_PW}"
+if [ -z "${ROOT_PW}" ]; then
+    export ROOT_DOCKER_OPTION="-e MYSQL_ALLOW_EMPTY_PASSWORD=true"
+    export ROOT_EXEC=""
+fi
 export RPL_USER=rpl_user
 export RPL_USER_H="${RPL_USER}@'%'"
 export RPL_PW=123qwe
@@ -35,11 +41,12 @@ do
 if ((${SERVER_IDS[i]}==${THIS_COMPUTER})); then
     CONFIG_DIR=${CONFIG_DIR_S0}_${SERVER_IDS[i]}
     mkdir -p $CONFIG_DIR;
+    mkdir -p ${DATA_DIR}_${SERVER_IDS[i]}
     cp $CONFIG_DIR_S0/config-file.cnf $CONFIG_DIR/config-file.cnf
     docker run -d --name=${CTN_NAME}_${SERVER_IDS[i]}_step0 \
          -v $CONFIG_DIR:/etc/mysql/conf.d \
          -v ${DATA_DIR}_${SERVER_IDS[i]}:/var/lib/mysql \
-         -e MYSQL_ROOT_PASSWORD=$ROOT_PW $DOCKER_IMAGE
+         ${ROOT_DOCKER_OPTION} $DOCKER_IMAGE
 fi
 done
 sleep 3
@@ -63,7 +70,7 @@ if ((${SERVER_IDS[i]}==${THIS_COMPUTER})); then
         --hostname=${HOSTS[i]} \
         -v ${CONFIG_DIR_S1_CLONED}:/etc/mysql/conf.d \
         -v ${DATA_DIR}_${SERVER_IDS[i]}:/var/lib/mysql \
-        -e MYSQL_ROOT_PASSWORD=$ROOT_PW $DOCKER_IMAGE
+        ${ROOT_DOCKER_OPTION} $DOCKER_IMAGE
     sleep 5
 
     q0="SET SQL_LOG_BIN=0;"
@@ -74,17 +81,17 @@ if ((${SERVER_IDS[i]}==${THIS_COMPUTER})); then
     q0+="SET SQL_LOG_BIN=1;"
     q0+="CHANGE MASTER TO MASTER_USER='$RPL_USER',  MASTER_PASSWORD='${RPL_PW}' FOR CHANNEL 'group_replication_recovery';"
     docker exec ${CTN_NAME}_${SERVER_IDS[i]} \
-        mysql -uroot -p$ROOT_PW -e "$q0"
+        mysql ${ROOT_EXEC} -e "$q0"
 
     if ((i == 0)); then
         q1="SET GLOBAL group_replication_bootstrap_group=ON;"
         q1+="START GROUP_REPLICATION;"
         q1+="SET GLOBAL group_replication_bootstrap_group=OFF;"
         docker exec ${CTN_NAME}_${SERVER_IDS[i]} \
-            mysql -uroot -p$ROOT_PW -e "$q1"
+            mysql ${ROOT_EXEC} -e "$q1"
     else
         docker exec ${CTN_NAME}_${SERVER_IDS[i]} \
-            mysql -uroot -p$ROOT_PW -e "START GROUP_REPLICATION"
+            mysql ${ROOT_EXEC} -e "START GROUP_REPLICATION"
     fi
     sleep 2
 fi
