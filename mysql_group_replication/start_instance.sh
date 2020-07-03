@@ -1,17 +1,16 @@
 set -x
 
-export SERVER_IDS=(11 22)
-export THIS_COMPUTER=11
-export HOSTS=()
+# SERVER_ID is an integer
+export SERVER_IDS=(188 101 102)
+export HOSTS=(10.100.22.188 10.100.50.101 10.100.50.102)
+export THIS_COMPUTER=188
 export GROUP_SEEDS=""
 for i in ${!SERVER_IDS[@]}
 do
-    HOST=172.16.121.${SERVER_IDS[i]}
-    export HOSTS+=(${HOST})
-    export GROUP_SEEDS+="${HOST}:33061,"
+    export GROUP_SEEDS+="${HOSTS[i]}:33061,"
 done
 export GROUP_SEEDS=${GROUP_SEEDS::-1}
-export GROUP_NAME="9d2ae0e0-1451-4971-86fb-451baa9f2dc7"
+export GROUP_NAME="e4bff544-c8ed-4136-90d6-ac8b9dd10a9a"
 
 export ROOT_PW=123qwe
 export RPL_USER=rpl_user
@@ -33,7 +32,7 @@ export NETWORK_NAME=host
 
 for i in ${!SERVER_IDS[@]}
 do
-if ((SERVER_IDS[i]==${THIS_COMPUTER})); then
+if ((${SERVER_IDS[i]}==${THIS_COMPUTER})); then
     CONFIG_DIR=${CONFIG_DIR_S0}_${SERVER_IDS[i]}
     mkdir -p $CONFIG_DIR;
     cp $CONFIG_DIR_S0/config-file.cnf $CONFIG_DIR/config-file.cnf
@@ -52,7 +51,7 @@ docker stop ${CTN_NAME}_${THIS_COMPUTER}_step0
 
 for i in ${!SERVER_IDS[@]}
 do
-if ((SERVER_IDS[i]==${THIS_COMPUTER})); then
+if ((${SERVER_IDS[i]}==${THIS_COMPUTER})); then
     export SERVER_ID=${SERVER_IDS[i]} # config-file.cnf
     export HOST=${HOSTS[i]} # config-file.cnf
     export CONFIG_DIR_S1_CLONED=${CONFIG_DIR_S1}_${SERVER_ID}
@@ -87,7 +86,7 @@ if ((SERVER_IDS[i]==${THIS_COMPUTER})); then
         docker exec ${CTN_NAME}_${SERVER_IDS[i]} \
             mysql -uroot -p$ROOT_PW -e "START GROUP_REPLICATION"
     fi
-    sleep 1
+    sleep 2
 fi
 done
 
@@ -97,7 +96,9 @@ done
 
 for i in ${!SERVER_IDS[@]}
 do
+if ((${SERVER_IDS[i]}==${THIS_COMPUTER})); then
     docker exec ${CTN_NAME}_${SERVER_IDS[i]} bash /step2_group_on_boot.sh
+fi
 done
 
 set +x

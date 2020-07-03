@@ -1,4 +1,4 @@
-export SERVER_IDS=(11 22)
+export SERVER_IDS=(188 101 102)
 export CTN_NAME=mysqlgroup
 
 set -x
