@@ -3,8 +3,8 @@ RUN apt-get update
 
 
 # install golang
-RUN apt-get install -qy wget git gcc graphviz
-RUN GO_VERSION=go1.14.linux-amd64.tar.gz &&\
+RUN apt-get install -qy wget git
+RUN GO_VERSION=go1.14.4.linux-amd64.tar.gz &&\
     cd /opt &&\
     wget --quiet https://dl.google.com/go/$GO_VERSION &&\
     tar -C /usr/local -xzf $GO_VERSION &&\
