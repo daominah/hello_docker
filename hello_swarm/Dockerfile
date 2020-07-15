@@ -6,4 +6,5 @@ WORKDIR ${APP_DIR}
 COPY ./example_app.go ./example_app.go
 RUN go build -o app
 
+EXPOSE 20891
 CMD ["./app"]
