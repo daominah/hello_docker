@@ -8,7 +8,6 @@ export hostName=SwarmManagerWorker # same var s3
 
 for i in ${!nodes[@]}
 do
-
     docker-machine --debug --native-ssh create --driver generic \
         --generic-ip-address=${nodes[i]} \
         --generic-ssh-key ${sshKey} \
@@ -16,3 +15,8 @@ do
 done
 
 set +x
+
+#
+# in case: error certificate signed by unknown authority
+# docker-machine --debug regenerate-certs -f SwarmManagerWorker2
+#
