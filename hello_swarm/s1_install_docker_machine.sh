@@ -1,3 +1,5 @@
+# install docker machine on your local computer
+
 if [ ! -f /usr/local/bin/docker-machine ]; then
     echo "installing docker-machine"
     export base=https://github.com/docker/machine/releases/download/v0.16.2

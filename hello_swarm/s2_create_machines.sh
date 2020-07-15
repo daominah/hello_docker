@@ -1,3 +1,5 @@
+# install docker on cluster's nodes
+
 set -x
 
 export nodes=(167.71.223.57 167.71.223.120 167.71.213.123) # same var s3
