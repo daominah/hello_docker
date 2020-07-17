@@ -1,3 +1,5 @@
+// example_app v0.1.1
+
 package main
 
 import (
@@ -13,12 +15,14 @@ func main() {
 	handler.HandleFunc("/", func() http.HandlerFunc {
 		myHostName, _ := os.Hostname()
 		myLocalIP, _ := GetOutboundIP()
+		instanceName := os.Getenv("INSTANCE_NAME")
 		log.Printf("server info: %v, %v", myHostName, myLocalIP)
 		return func(w http.ResponseWriter, r *http.Request) {
 			jsonB, _ := json.MarshalIndent(map[string]interface{}{
-				"ServerHostname": myHostName,
-				"ServerLocalIP":  myLocalIP,
-				"ClientAddr":     r.RemoteAddr,
+				"ServerHostname":     myHostName,
+				"ServerLocalIP":      myLocalIP,
+				"ServerInstanceName": instanceName,
+				"ClientAddr":         r.RemoteAddr,
 			}, "", "\t")
 			w.Write(jsonB)
 		}
