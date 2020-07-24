@@ -4,4 +4,5 @@
 
 step0_init_data_dir_*
 step1_bootstrap_group_*
-var_lib_mysql_*
+var_lib_mysql*
+docker_run_env.list

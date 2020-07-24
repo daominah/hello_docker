@@ -1,0 +1,5 @@
+[mysqld]
+
+default-authentication-plugin=mysql_native_password
+bind-address=${MY_BIND_ADDR}
+port=${MY_PORT}
