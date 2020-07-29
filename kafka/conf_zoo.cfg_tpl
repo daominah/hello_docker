@@ -1,0 +1,12 @@
+dataDir=$ZOO_DATA_DIR
+dataLogDir=$ZOO_DATA_LOG_DIR
+tickTime=2000
+initLimit=5
+syncLimit=2
+autopurge.snapRetainCount=0
+autopurge.purgeInterval=3
+maxClientCnxns=60
+standaloneEnabled=false
+admin.enableServer=false
+$ZOO_SERVERS
+$ZOO_CFG_EXTRA

@@ -1,29 +1,31 @@
-# The base OS
-FROM ubuntu:18.04
+FROM zookeeper:3.5.7
+# Debian GNU/Linux 10 (buster)
 
-MAINTAINER TungDT <tung.daothanhtung@gmail.com>
-
+# change to Vietnam mirror, main mirror is so slow
+RUN sed -i -e 's/deb.debian.org/debian.xtdv.net/g' /etc/apt/sources.list
 RUN apt-get update
-RUN apt-get install --quiet --yes net-tools wget vim
 
-RUN apt-get install -yq default-jre
-RUN apt-get install -yq zookeeper
+# kafka:2.5.0, released 2020-04-15, prefer Zookeeper to 3.5.7
+ENV kafkaVer 2.5.0
+ENV scalaVer 2.12
+ENV kafkaHome /opt/kafka_${scalaVer}-${kafkaVer}
+ENV kafkaMirror http://mirrors.viethosting.com/apache/kafka
+RUN wget -q ${kafkaMirror}/${kafkaVer}/kafka_${scalaVer}-${kafkaVer}.tgz
+RUN tar -xzf kafka_${scalaVer}-${kafkaVer}.tgz -C /opt &&\
+    rm kafka_${scalaVer}-${kafkaVer}.tgz
 
-RUN wget -q http://mirrors.viethosting.com/apache/kafka/2.3.0/kafka_2.12-2.3.0.tgz
-RUN tar -xzf kafka_2.12-2.3.0.tgz -C /opt &&\
-    mv /opt/kafka_2.12-2.3.0 /opt/kafka &&\
-    rm kafka_2.12-2.3.0.tgz
+RUN apt-get install -qy net-tools telnet iputils-ping vim gettext-base
 
-ENV HOST_IDS="1 2 3"
-ENV HOST_IP_PREFIX="172.18.0.20"
-
-RUN for i in $HOST_IDS; \
-    do echo server.$i=$HOST_IP_PREFIX$i:2888:3888 >> /etc/zookeeper/conf/zoo.cfg; \
-    done
-
-RUN export BROKER_LIST="" &&\
-    for i in $HOST_IDS; \
-        do BROKER_LIST="$BROKER_LIST$HOST_IP_PREFIX$i:2181,"; \
-        done &&\
-    BROKER_LIST=$(echo -n $BROKER_LIST | head -c -1) &&\
-    sed -i "s/zookeeper.connect=localhost:2181/zookeeper.connect=$BROKER_LIST/g" /opt/kafka/config/server.properties
+#ENV HOST_IDS="1 2 3"
+#ENV HOST_IP_PREFIX="172.18.0.20"
+#
+#RUN for i in $HOST_IDS; \
+#    do echo server.$i=$HOST_IP_PREFIX$i:2888:3888 >> /etc/zookeeper/conf/zoo.cfg; \
+#    done
+#
+#RUN export BROKER_LIST="" &&\
+#    for i in $HOST_IDS; \
+#        do BROKER_LIST="$BROKER_LIST$HOST_IP_PREFIX$i:2181,"; \
+#        done &&\
+#    BROKER_LIST=$(echo -n $BROKER_LIST | head -c -1) &&\
+#    sed -i "s/zookeeper.connect=localhost:2181/zookeeper.connect=$BROKER_LIST/g" /opt/kafka/config/server.properties
