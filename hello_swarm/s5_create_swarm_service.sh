@@ -1,3 +1,5 @@
+# run this sh on a manager node
+
 export appVersion=0.1.0
 
 # default swarm's balancer https://docs.docker.com/engine/swarm/ingress,

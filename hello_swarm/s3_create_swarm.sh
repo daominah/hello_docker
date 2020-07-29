@@ -2,8 +2,8 @@
 
 set -x
 
-export nodes=(167.71.223.57 167.71.223.120 167.71.213.123) # same var s2
-export hostName=SwarmManagerWorker # same var s2
+export nodes=(128.199.73.81 188.166.250.8 188.166.246.39) # same var s2
+export hostName=dosmanager # same var s2
 
 export hostNames=()
 for i in ${!nodes[@]}

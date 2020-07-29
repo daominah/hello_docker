@@ -2,6 +2,7 @@
 
 if [ -z "${MINIO_SECRET_KEY}" ]; then
     echo "error: set envs (example in ./env.sh) before running container"
+    exit
 fi
 
 baseImage=minio/minio:RELEASE.2020-07-27T18-37-02Z
