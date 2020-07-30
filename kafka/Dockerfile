@@ -1,4 +1,4 @@
-FROM zookeeper:3.5.7
+FROM zookeeper:3.5.8
 # Debian GNU/Linux 10 (buster)
 
 # change to Vietnam mirror, main mirror is so slow

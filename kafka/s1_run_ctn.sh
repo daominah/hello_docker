@@ -4,11 +4,21 @@ export DOCKER_IMG_TAG=daominah/kafka # same var in s0
 dockerCtnName=kafka
 dockerRunEnvSh=${PWD}/env.sh
 
-# deploy on all nodes
 nodeIPs=()
 for m in ${machines[@]}; do
     nodeIPs+=($(docker-machine ip ${m}))
 done
+
+# stop and remove old containers
+for i in ${!nodeIDs[@]}; do
+    eval $(docker-machine env ${machines[i]})
+    echo "cleaning on ${nodeIPs[i]}"
+    docker stop ${dockerCtnName} 2>/dev/null;
+    docker rm ${dockerCtnName} 2>/dev/null;
+    eval $(docker-machine env --unset)
+done
+
+# deploy on all nodes
 for i in ${!nodeIDs[@]}; do
     # prepare specific node config
     export ZOO_MY_ID=${nodeIDs[i]} # used in env.sh
@@ -33,8 +43,6 @@ for i in ${!nodeIDs[@]}; do
 
     # pull image and run container image on remote host
     eval $(docker-machine env ${machines[i]})
-    docker stop ${dockerCtnName} 2>/dev/null;
-    docker rm ${dockerCtnName} 2>/dev/null;
     docker pull ${DOCKER_IMG_TAG}
     docker run -dit --name ${dockerCtnName} \
         -p 2181:2181 -p 2888:2888 -p 3888:3888 -p 9092:9092 \
