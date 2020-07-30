@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# https://github.com/31z4/zookeeper-docker/tree/c0039669a527a56b19ceb30a6523ed206fbf245d/3.5.7
+# Cloned from https://github.com/31z4/zookeeper-docker/tree/c0039669a527a56b19ceb30a6523ed206fbf245d/3.5.7
 
 set -e
 
@@ -45,5 +45,3 @@ fi
 if [[ ! -f "$ZOO_DATA_DIR/myid" ]]; then
     echo "${ZOO_MY_ID:-1}" > "$ZOO_DATA_DIR/myid"
 fi
-
-exec "$@"

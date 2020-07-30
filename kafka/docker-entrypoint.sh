@@ -1,8 +1,13 @@
 #!/bin/bash
 
-set -x
+printenv # for debugging
 
+# config zookeeper
 echo "about to run default entrypoint from base Zookeeper image: $@"
-. /docker-entrypoint_origin.sh "$@"
+. /docker-entrypoint_zoo.sh "$@"
 
-set +x
+# config kafka
+echo "config kafka"
+envsubst < "/kafka_server.properties.tpl" > "/opt/kafka/config/server.properties"
+
+exec "$@"

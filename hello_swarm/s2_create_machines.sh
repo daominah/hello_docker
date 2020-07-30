@@ -4,7 +4,7 @@ set -x
 
 export nodes=(128.199.73.81 188.166.250.8 188.166.246.39) # same var s3
 export sshKey="${HOME}/.ssh/id_rsa"
-export hostName=dosmanager # same var s3
+export hostName=dosmanager # same var s3, s5
 
 for i in ${!nodes[@]}
 do

@@ -3,7 +3,7 @@
 set -x
 
 export nodes=(128.199.73.81 188.166.250.8 188.166.246.39) # same var s2
-export hostName=dosmanager # same var s2
+export hostName=dosmanager # same var s2, s5
 
 export hostNames=()
 for i in ${!nodes[@]}
