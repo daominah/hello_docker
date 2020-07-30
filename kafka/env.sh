@@ -1,3 +1,2 @@
-export dataDir=/data
-export dataLogDir=/datalog
-export ZOO_SERVERS=server.1=localhost:2888:3888;2181
+export ZOO_STANDALONE_ENABLED=false
+export ZOO_SERVERS=server.1=0.0.0.0:2888:3888;2181

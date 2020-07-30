@@ -16,6 +16,12 @@ RUN tar -xzf kafka_${scalaVer}-${kafkaVer}.tgz -C /opt &&\
 
 RUN apt-get install -qy net-tools telnet iputils-ping vim gettext-base
 
+COPY ./docker-entrypoint_origin.sh /
+COPY ./docker-entrypoint.sh /
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["zkServer.sh", "start-foreground"]
+
 #ENV HOST_IDS="1 2 3"
 #ENV HOST_IP_PREFIX="172.18.0.20"
 #
