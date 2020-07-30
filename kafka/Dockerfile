@@ -19,8 +19,8 @@ RUN apt-get install -qy net-tools telnet iputils-ping vim procps
 
 RUN apt-get install -qy supervisor
 
-COPY supervisor/zookeeper.conf /etc/supervisor/conf.d/
-COPY supervisor/kafka.conf /etc/supervisor/conf.d/
+COPY supervisor_zookeeper.conf /etc/supervisor/conf.d/
+COPY supervisor_kafka.conf /etc/supervisor/conf.d/
 COPY kafka_server.properties.tpl /
 COPY docker_start_kafka.sh /
 COPY docker-entrypoint_zoo.sh /
