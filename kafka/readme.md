@@ -1,3 +1,2 @@
-# Zookeeper and Kafka
-
-[supervisord stdout](https://stackoverflow.com/a/26897648/4097963)
+Moved to [daominah/zookafka](
+https://github.com/daominah/zookafka).
