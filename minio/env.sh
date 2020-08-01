@@ -1,6 +1,3 @@
-export MINIO_DATA_DIR=${PWD}/data
-
-export MINIO_HOST=
 export MINIO_PORT=9000
 export MINIO_ACCESS_KEY=daominah
-export MINIO_SECRET_KEY=wG6R72D_BoBW
+export MINIO_SECRET_KEY="dao min ah"
