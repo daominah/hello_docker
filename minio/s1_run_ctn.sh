@@ -20,5 +20,6 @@ echo "published port ${dockerCtnName}: ${MINIO_PORT}"
 mkdir -p ${hostMountDir}
 docker run -dit --name ${dockerCtnName} \
     --env-file ${dockerRunEnvList} \
+    -v ${hostMountDir}:/data \
     -p ${MINIO_PORT}:${MINIO_PORT} \
-    ${DOCKER_IMG_TAG} server ${hostMountDir}
+    ${DOCKER_IMG_TAG} server /data
