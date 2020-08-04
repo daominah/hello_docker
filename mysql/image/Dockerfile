@@ -6,8 +6,8 @@ RUN apt-get update
 
 RUN apt-get install -qy net-tools telnet iputils-ping vim gettext-base
 
-COPY ./config-file.cnf_template /config-file.cnf_template
-COPY ./my_entrypoint.sh /my_entrypoint.sh
+COPY ./config-file.cnf_tpl /
+COPY ./my_entrypoint.sh /
 
 ENTRYPOINT ["bash", "/my_entrypoint.sh"]
 CMD ["mysqld"]
