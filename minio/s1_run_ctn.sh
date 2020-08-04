@@ -1,6 +1,6 @@
 DOCKER_IMG_TAG=minio/minio:RELEASE.2020-07-27T18-37-02Z
 dockerCtnName=minio
-hostMountDir=${HOME}/var/miniodata
+hostMountDir=/home/tungdt/var/data_minio
 
 docker pull ${DOCKER_IMG_TAG}
 
