@@ -1,4 +1,4 @@
-FROM mysql:8.0.20
+FROM mysql:8.0.21
 
 # change to Vietnam mirror
 RUN sed -i -e 's/deb.debian.org/debian.xtdv.net/g' /etc/apt/sources.list

@@ -32,6 +32,6 @@ docker run -dit --name=${dockerCtnName} \
      -v ${hostMountDir}:/var/lib/mysql \
      -p ${MYSQL_PORT}:${MYSQL_PORT} -p 33060:33060 -p 33061:33061 \
      --env-file ${dockerRunEnvList} \
-     daominah/mysql8
+     ${DOCKER_IMG_TAG}
 
 #eval $(docker-machine env --unset)

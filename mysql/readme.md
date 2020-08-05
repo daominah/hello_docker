@@ -9,11 +9,12 @@
 ## Entrypoint
 
 Base [docker-entrypoint.sh](
-https://github.com/docker-library/mysql/blob/master/8.0/docker-entrypoint.sh)
+https://github.com/docker-library/mysql/blob/01a48696e18aa6372cc47c57e9217af0b35b93bf/8.0/docker-entrypoint.sh)
 
 ## Environment Variables
 
-[env.sh](../env.sh)
+* Typical config: [env.sh](./env.sh)  
+* Source env readme: [docker-library/docs](https://raw.githubusercontent.com/docker-library/docs/master/mysql/README.md)
 
 When you start the `mysql` image, you can adjust the configuration of the MySQL instance by passing one or more environment variables on the `docker run` command line. Do note that none of the variables below will have any effect if you start the container with a data directory that already contains a database: any pre-existing database will always be left untouched on container startup.
 
@@ -48,5 +49,3 @@ Sets root (*not* the user specified in `MYSQL_USER`!) user as expired once init 
 ### `MYSQL_INITDB_SKIP_TZINFO`
 
 By default, the entrypoint script automatically loads the timezone data needed for the `CONVERT_TZ()` function. If it is not needed, any non-empty value disables timezone loading.
-
-[source](https://raw.githubusercontent.com/docker-library/docs/master/mysql/README.md)
