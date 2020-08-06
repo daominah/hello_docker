@@ -27,7 +27,7 @@ sed -i "s/'//g" ${dockerRunEnvList}
 
 # docker run on remote machines
 docker run -dit --name=${dockerCtnName} \
-     -v ${hostMountDir}:/var/lib/mysql \
+     -v ${hostMountDir}:/data/db \
      -p 27017:27017 \
      --env-file ${dockerRunEnvList} \
      ${DOCKER_IMG_TAG}
