@@ -3,7 +3,7 @@ dockerCtnName=etcd3
 hostMountDir=/root/data_etcd
 export MACHINE_NAMES=(local0 local1 local2)
 
-# shared config fields in cluster
+# set shared config fields in cluster
 nodeIPs=()
 for machine in ${MACHINE_NAMES[@]}; do
     nodeIPs+=($(docker-machine ip ${machine}))
@@ -18,11 +18,11 @@ export ETCD_INITIAL_CLUSTER=${ETCD_INITIAL_CLUSTER::-1} # remove last delimiter
 echo "etcdCluster: ${ETCD_INITIAL_CLUSTER}"
 
 # prepare image
-#for machine in ${MACHINE_NAMES[@]}; do
-#    eval $(docker-machine env ${machine})
-#    docker pull ${DOCKER_IMG_TAG}
-#    eval $(docker-machine env --unset)
-#done
+for machine in ${MACHINE_NAMES[@]}; do
+    eval $(docker-machine env ${machine})
+    docker pull ${DOCKER_IMG_TAG}
+    eval $(docker-machine env --unset)
+done
 
 # clean up
 for machine in ${MACHINE_NAMES[@]}; do
@@ -50,6 +50,7 @@ for i in ${!MACHINE_NAMES[@]}; do
 
     # should add --restart always in production
     docker run -dit --name=${dockerCtnName} \
+        -v ${hostMountDir}:/etcd-data \
         -p 2379:2379 -p 2380:2380 \
         --env-file=${dkrEnv} \
         ${DOCKER_IMG_TAG}

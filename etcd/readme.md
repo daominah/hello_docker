@@ -25,5 +25,6 @@ docker run -it --rm --network=host daominah/etcd3 \
 
 ## Run a cluster
 
-Use [./s1_run_ctn.sh](./s1_run_ctn.sh).  
+Use script [./s1_run_ctn.sh](./s1_run_ctn.sh).
+
 Full doc [envs config](https://etcd.io/docs/v3.4.0/op-guide/configuration/)

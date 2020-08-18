@@ -32,4 +32,7 @@ ENV ETCD_LOG_LEVEL info
 ENV ETCD_LOGGER zap
 ENV ETCD_LOG_OUTPUTS stdout
 
+COPY entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash", "-c", "${ETCD_ROOT}/etcd"]
