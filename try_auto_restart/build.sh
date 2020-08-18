@@ -1,1 +1,0 @@
-docker build --tag try_auto_restart .

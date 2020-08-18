@@ -1,1 +1,0 @@
-docker run --name=try_auto_restart_c -dit --restart=always try_auto_restart
