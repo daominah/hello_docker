@@ -9,13 +9,13 @@ fi
     sleep $(( 5 + $RANDOM % 5))
     etcdUsers=$(etcdctl user list 2>&1)
     if [ -z "${etcdUsers}" ]; then
-        echo "$(date --iso=ns): etcdctl user list is empty, will create user root"
+        echo "$(date --iso=ns): user list is empty, will create user root"
         echo "$ETCD_ROOT_PASSWORD" | etcdctl user add root --interactive=false
         etcdctl user grant-role root root
         etcdctl auth enable
         echo "$(date --iso=ns): done etcdctl auth enable"
     else
-        echo "$(date --iso=ns): etcdctl user list: ${etcdUsers}"
+        echo "$(date --iso=ns): return of user list: ${etcdUsers}"
     fi
 ) &
 

@@ -20,6 +20,7 @@ echo "etcdCluster: ${ETCD_INITIAL_CLUSTER}"
 # prepare image
 for machine in ${MACHINE_NAMES[@]}; do
     eval $(docker-machine env ${machine})
+    echo "$(docker-machine active) is pulling image $DOCKER_IMG_TAG"
     docker pull ${DOCKER_IMG_TAG}
     eval $(docker-machine env --unset)
 done

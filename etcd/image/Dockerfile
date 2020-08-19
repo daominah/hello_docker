@@ -16,7 +16,6 @@ RUN tar xzvf /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz \
         -C ${ETCD_ROOT} --strip-components=1
 RUN rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
 RUN etcd --version
-RUN etcdctl version
 
 RUN apt-get install -qy net-tools telnet iputils-ping
 
