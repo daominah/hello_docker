@@ -28,3 +28,7 @@ docker run -it --rm --network=host daominah/etcd3 \
 Use script [./s1_run_ctn.sh](./s1_run_ctn.sh).
 
 Full doc [envs config](https://etcd.io/docs/v3.4.0/op-guide/configuration/)
+
+## Basic usages
+
+[docs/v3.4.0/dev-guide](https://etcd.io/docs/v3.4.0/dev-guide/interacting_v3/)
