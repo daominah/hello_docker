@@ -1,5 +1,17 @@
 # Hello Docker
 
+## Common structure
+
+Each sub directory includes scripts to setup a tech. They follow a
+common structure:
+
+* `image/Dockerfile`: optional, customize image for easy config from 
+  environment variable (example: [./mysql/image/Dockerfile])
+* `env.sh`: environment variables for `docker run`
+* `s0_build_img.sh`
+* `s1_run_ctn.sh`: customize env for each nodes in cluster, run 
+  containers on remote nodes with docker-machine from local computer.
+
 ## Useful commands
 
 ### Copy docker image to machines

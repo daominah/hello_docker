@@ -1,22 +1,24 @@
 # Setup an etcd cluster
 
-## References
+
+## Dockerfile
+
+Dockerfile is based on installing script on [https://github.com/etcd-io/etcd/releases].
+
+Configuration for running containers:
 
 * [https://github.com/etcd-io/etcd]
 * [https://etcd.io/docs/v3.4.0/op-guide/clustering]
 * [https://etcd.io/docs/v3.4.0/op-guide/authentication]
 
-## Dockerfile
 
-Base on installing script on [https://github.com/etcd-io/etcd/releases]
-
-## Run a stand alone server
+## Run a stand-alone server
 
 ````bash
 docker run -dit --name=etcd3 -p 2379:2379 -p 2380:2380 daominah/etcd3
 ````
 
-## Run client
+## Run client etcdctl
 
 ````bash
 docker run -it --rm --network=host daominah/etcd3 \
@@ -32,3 +34,7 @@ Full doc [envs config](https://etcd.io/docs/v3.4.0/op-guide/configuration/)
 ## Basic usages
 
 [docs/v3.4.0/dev-guide](https://etcd.io/docs/v3.4.0/dev-guide/interacting_v3/)
+
+## GUI client
+
+TODO
