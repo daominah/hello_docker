@@ -1,3 +1,5 @@
+# https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/configuration.md
+
 # defined in s1, human-readable name for a member
 export ETCD_NAME=${ETCD_NAME}
 
@@ -17,3 +19,7 @@ export ETCD_INITIAL_CLUSTER=${ETCD_INITIAL_CLUSTER}
 
 # for etcdctl auth enable
 export ETCD_ROOT_PASSWORD=
+
+# https://etcd.io/docs/v3.4.0/op-guide/maintenance/
+export ETCD_AUTO_COMPACTION_RETENTION=1
+export ETCD_QUOTA_BACKEND_BYTES=8589934592
