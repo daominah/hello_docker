@@ -33,7 +33,14 @@ Full doc [envs config](https://etcd.io/docs/v3.4.0/op-guide/configuration/)
 
 ## Basic usages
 
-[docs/v3.4.0/dev-guide](https://etcd.io/docs/v3.4.0/dev-guide/interacting_v3/)
+* [docs/v3.4.0/dev-guide](https://etcd.io/docs/v3.4.0/dev-guide/interacting_v3/)
+* Cluster status:
+
+  ````bash
+  etcdctl -w table --command-timeout=1s \
+      --endpoints=192.168.99.100:2379,192.168.99.101:2379,192.168.99.102:2379 \
+      endpoint status
+  ````
 
 ## GUI client
 
