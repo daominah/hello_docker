@@ -14,6 +14,11 @@ common structure:
 
 ## Useful commands
 
+### Install docker-machine, create 3 virtual machines
+
+* [./sa_local_prepare.sh]
+* [./sb_create_machines.sh]
+
 ### Copy docker image to machines
 
 Instead of pull, copy is faster for local testing.
