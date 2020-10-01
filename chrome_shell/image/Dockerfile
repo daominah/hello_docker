@@ -1,6 +1,11 @@
-FROM ubuntu:18.04
-RUN apt-get update
+FROM chromedp/headless-shell:85.0.4183.121
 
+# Debian GNU/Linux 10 (buster)
+RUN cat /etc/os-release
+RUN sed -i -e 's/deb.debian.org/debian.xtdv.net/g' /etc/apt/sources.list
+RUN apt-get -o Acquire::Check-Valid-Until=false update
+
+# install Go
 RUN apt-get install -qy git wget
 RUN GO_VERSION=go1.14.9.linux-amd64.tar.gz &&\
     cd /opt &&\
@@ -20,3 +25,10 @@ RUN TMP='package main; func main() {println("Hello world")}' &&\
     echo $TMP> /go/src/hello/hello.go
 
 RUN apt-get install -qy procps net-tools telnet iputils-ping vim gettext-base
+
+# try github.com/chromedp/example
+ENV chromeDPDir=${GOPATH}/src/github.com/chromedp
+RUN mkdir -p ${chromeDPDir} && cd ${chromeDPDir} &&\
+    git clone https://github.com/chromedp/examples &&\
+    cd examples && git reset --hard cb21abae103c3e9a5ad08f35e2ec516b6053a17e &&\
+    go mod download
