@@ -17,4 +17,5 @@ sed -i "s/'//g" ${dockerRunEnvList}
 source env.sh
 docker run -dit --name ${dockerCtnName} \
     --env-file ${dockerRunEnvList} \
+    --network=host \
     --init ${DOCKER_IMG_TAG}
