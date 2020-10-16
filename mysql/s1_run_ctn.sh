@@ -19,11 +19,8 @@ echo "stop and remove old containers"
     docker rm ${dockerCtnName} 2>/dev/null;
 
 # generate docker run environment file
-dockerRunEnvList=${PWD}/env_docker_run.list
-bash -x env.sh 2>${dockerRunEnvList}
-sed -i 's/+ //' ${dockerRunEnvList}
-sed -i '/^export /d' ${dockerRunEnvList}
-sed -i "s/'//g" ${dockerRunEnvList}
+dkrEnv=${PWD}/env_docker_run.list; bash -x ./env.sh 2>${dkrEnv}
+sed -i 's/+ //' ${dkrEnv}; sed -i '/^export /d' ${dkrEnv}; sed -i "s/'//g" ${dkrEnv}
 
 # docker run on remote machines
 source env.sh
@@ -31,7 +28,7 @@ echo "published port ${dockerCtnName}: ${MYSQL_PORT}"
 docker run -dit --name=${dockerCtnName} \
      -v ${hostMountDir}:/var/lib/mysql \
      -p ${MYSQL_PORT}:${MYSQL_PORT} -p 33060:33060 -p 33061:33061 \
-     --env-file ${dockerRunEnvList} \
+     --env-file ${dkrEnv} \
      ${DOCKER_IMG_TAG}
 
 #eval $(docker-machine env --unset)

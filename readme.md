@@ -36,7 +36,6 @@ done
 ### Generate docker run environment file
 
 ````bash
-realConfigFile=conf/env.sh
-dkrEnv=${PWD}/env_docker_run.list; bash -x ${realConfigFile} 2>${dkrEnv}
+dkrEnv=${PWD}/env_docker_run.list; bash -x ./env.sh 2>${dkrEnv}
 sed -i 's/+ //' ${dkrEnv}; sed -i '/^export /d' ${dkrEnv}; sed -i "s/'//g" ${dkrEnv}
 ````
