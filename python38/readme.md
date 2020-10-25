@@ -1,3 +1,7 @@
-`docker build --tag=daominah/python38 .`
+````
+docker build --tag=daominah/python38 .
 
-`docker run --network host --restart=no --name python38 -dit daominah/python38`
+docker run -dit --name=python38 --network=host --restart=no daominah/python38
+
+docker run -it --rm daominah/python38
+````
