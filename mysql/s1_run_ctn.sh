@@ -25,7 +25,7 @@ sed -i 's/+ //' ${dkrEnv}; sed -i '/^export /d' ${dkrEnv}; sed -i "s/'//g" ${dkr
 # docker run on remote machines
 source env.sh
 echo "published port ${dockerCtnName}: ${MYSQL_PORT}"
-docker run -dit --name=${dockerCtnName} \
+docker run -dit --restart always --name=${dockerCtnName} \
      -v ${hostMountDir}:/var/lib/mysql \
      -p ${MYSQL_PORT}:${MYSQL_PORT} -p 33060:33060 -p 33061:33061 \
      --env-file ${dkrEnv} \
