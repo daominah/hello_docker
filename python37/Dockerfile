@@ -6,7 +6,7 @@ RUN apt install -qy software-properties-common
 RUN add-apt-repository -y ppa:deadsnakes/ppa
 RUN apt update
 
-ENV BIN_PYTHON python3.9
+ENV BIN_PYTHON python3.7
 RUN apt install -qy ${BIN_PYTHON}
 RUN apt install -qy python3-distutils python3-pip python3-setuptools
 RUN apt install -qy ${BIN_PYTHON}-dev ${BIN_PYTHON}-venv
