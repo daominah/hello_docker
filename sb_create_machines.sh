@@ -15,13 +15,18 @@ if ${isRemote}; then
             docker-machine --debug --native-ssh create --driver generic \
                 --generic-ip-address=${nodeIPs[i]} \
                 --generic-ssh-port=22 \
+                --generic-ssh-user=root \
                 --generic-ssh-key ${sshKey} \
                 ${MACHINE_PREFIX}${i}
 
             # change docker version
             docker-machine ssh ${MACHINE_PREFIX}${i} \
-                apt install -y --allow-downgrades docker-ce=${dockerVersion}
-            docker-machine ssh ${MACHINE_PREFIX}${i} systemctl restart docker
+                sudo apt install -y --allow-downgrades docker-ce=${dockerVersion}
+            docker-machine ssh ${MACHINE_PREFIX}${i} \
+                sudo systemctl restart docker
+            # optional, allow run docker as a non root user
+            docker-machine ssh ${MACHINE_PREFIX}${i} \
+                'sudo usermod -aG docker ${USER}'
         fi
     done
 
