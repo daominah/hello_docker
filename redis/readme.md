@@ -7,7 +7,8 @@ Key value store server.
 * Run server:
   
   ````bash
-  docker run -dit -p 6379:6379 --name redis6 redis:6.0.6-buster
+  docker rm -f redis6
+  docker run -dit --restart always -p 6379:6379 --name redis6 redis:6.0.6-buster
   ````  
   
 * Run shell client

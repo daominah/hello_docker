@@ -27,7 +27,7 @@ source env.sh
 echo "published port ${dockerCtnName}: ${MYSQL_PORT}"
 docker run -dit --restart always --name=${dockerCtnName} \
      -v ${hostMountDir}:/var/lib/mysql \
-     -p ${MYSQL_PORT}:${MYSQL_PORT} -p 33060:33060 -p 33061:33061 \
+     -p ${MYSQL_PORT}:${MYSQL_PORT} \
      --env-file ${dkrEnv} \
      ${DOCKER_IMG_TAG}
 
