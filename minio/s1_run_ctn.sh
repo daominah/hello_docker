@@ -1,6 +1,8 @@
-DOCKER_IMG_TAG=minio/minio:RELEASE.2020-07-27T18-37-02Z
-dockerCtnName=minio
-hostMountDir=/home/tungdt/var/data_minio
+# this scripts deploy a MinIO server on the local machine
+
+export DOCKER_IMG_TAG=minio/minio:RELEASE.2020-07-27T18-37-02Z
+export dockerCtnName=minio
+export hostMountDir=/home/tungdt/var/data_minio
 
 docker pull ${DOCKER_IMG_TAG}
 
