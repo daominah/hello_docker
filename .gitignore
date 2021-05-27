@@ -6,5 +6,5 @@ mysql_group_replication/step0_init_data_dir_*
 mysql_group_replication/step1_bootstrap_group_*
 mysql_group_replication/var_lib_mysql*
 mysql/var_lib_mysql
-env_docker_run.list
+env_docker_run.list*
 mongodb/data_db
