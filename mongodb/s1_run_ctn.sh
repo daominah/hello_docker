@@ -1,8 +1,8 @@
 # need to config before run
 
 export DOCKER_IMG_TAG=daominah/mongo4 # defined in s0_
-dockerCtnName=mongo4
-hostMountDir=/home/tungdt/var/data_mongo # dir on remote docker host
+export dockerCtnName=mongo4
+export hostMountDir=/home/tungdt/var/data_mongo # dir on remote docker host
 
 export MACHINE_NAME=local
 
