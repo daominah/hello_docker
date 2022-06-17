@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 RUN apt-get update
 
 RUN apt-get install -qy git wget
-RUN GO_VERSION=go1.16.10.linux-amd64.tar.gz &&\
+RUN GO_VERSION=go1.16.15.linux-amd64.tar.gz &&\
     cd /opt &&\
     wget --quiet https://dl.google.com/go/$GO_VERSION &&\
     tar -C /usr/local -xzf $GO_VERSION &&\
