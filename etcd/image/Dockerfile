@@ -1,9 +1,10 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 RUN apt-get update
 
 RUN apt-get install -qy ca-certificates openssl tar curl
 
-ENV ETCD_VER=v3.4.10
+# https://github.com/etcd-io/etcd/tree/v3.4.22 released on 2022-11-02
+ENV ETCD_VER=v3.5.5
 ENV DOWNLOAD_URL=https://github.com/etcd-io/etcd/releases/download
 ENV ETCD_ROOT=/opt/etcd
 ENV PATH=${PATH}:${ETCD_ROOT}
@@ -30,6 +31,9 @@ ENV ETCD_INITIAL_CLUSTER_STATE new
 ENV ETCD_LOG_LEVEL info
 ENV ETCD_LOGGER zap
 ENV ETCD_LOG_OUTPUTS stdout
+ENV ETCD_AUTO_COMPACTION_RETENTION=10h
+ENV ETCD_AUTO_COMPACTION_MODE=periodic
+ENV ETCD_QUOTA_BACKEND_BYTES=8589934592
 
 COPY entrypoint.sh /entrypoint.sh
 

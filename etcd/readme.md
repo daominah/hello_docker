@@ -18,11 +18,12 @@ Configuration for running containers:
 docker run -dit --name=etcd3 -p 2379:2379 -p 2380:2380 daominah/etcd3
 ````
 
-## Run client etcdctl
+## try to put and get a key value with etcdctl
 
 ````bash
-docker run -it --rm --network=host daominah/etcd3 \
-    /opt/etcd/etcdctl --endpoints=http://127.0.0.1:2379 put key0 val0
+docker exec -it etcd3 bash
+etcdctl put key0 val0
+etcdctl get key0
 ````
 
 ## Run a cluster

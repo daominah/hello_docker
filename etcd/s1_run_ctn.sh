@@ -1,4 +1,4 @@
-export DOCKER_IMG_TAG=daominah/etcd3
+export DOCKER_IMG_TAG=daominah/etcd35
 dockerCtnName=etcd3
 hostMountDir=/root/data_etcd
 export MACHINE_NAMES=(local0 local1 local2)

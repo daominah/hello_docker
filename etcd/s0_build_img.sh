@@ -1,6 +1,6 @@
 set -e  # exit on error
 
-export DOCKER_IMG_TAG=daominah/etcd3 # used in s1_
+export DOCKER_IMG_TAG=daominah/etcd35 # used in s1_
 
 (cd image && docker build --tag=${DOCKER_IMG_TAG} .)
 
