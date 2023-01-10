@@ -7,7 +7,7 @@ RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh &&\
 RUN apt-get update
 RUN apt-get install -qy nodejs
 
-ENV NPM_PACKAGES "/root/.npm-packages"
+ENV NPM_PACKAGES "$HOME/.npm-packages"
 RUN mkdir -p $NPM_PACKAGES
 RUN npm config set prefix $NPM_PACKAGES
 ENV PATH "$PATH:$NPM_PACKAGES/bin"
