@@ -15,8 +15,9 @@ ENV PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 
 RUN apt-get install -qy graphviz gcc
 
-RUN TMP='package main; func main() {println("Hello world")}' &&\
+RUN TMP='package main; func main() {println("hello world")}' &&\
     mkdir -p /go/src/hello &&\
-    echo $TMP> /go/src/hello/hello.go
+    echo $TMP> /go/src/hello/hello.go &&\
+    go run /go/src/hello/hello.go
 
 RUN apt-get install -qy procps net-tools telnet iputils-ping vim gettext-base
