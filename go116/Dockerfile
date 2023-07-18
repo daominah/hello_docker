@@ -20,4 +20,4 @@ RUN TMP='package main; func main() {println("hello world")}' &&\
     echo $TMP> /go/src/hello/hello.go &&\
     go run /go/src/hello/hello.go
 
-RUN apt-get install -qy procps net-tools telnet iputils-ping vim gettext-base
+RUN apt-get install -qy procps net-tools telnet iputils-ping vim gettext-base curl
