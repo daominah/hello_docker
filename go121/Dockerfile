@@ -14,7 +14,7 @@ ENV GOPATH=$HOME/go
 ENV PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 
 RUN mkdir -p $GOROOT
-ARG GOVERSION=go1.21.0
+ARG GOVERSION=go1.21.1
 ENV GO_BINARY_DISTRIBUTION=$GOVERSION.linux-amd64.tar.gz
 RUN wget --quiet https://dl.google.com/go/$GO_BINARY_DISTRIBUTION
 RUN tar -C $GOROOT -xzf $GO_BINARY_DISTRIBUTION --strip-components 1
