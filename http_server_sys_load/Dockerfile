@@ -12,8 +12,12 @@ RUN go test -v ./...
 
 # deploy the application binary into a lean image:
 
-FROM debian:bookworm AS executable-release-stage
+FROM debian:bookworm AS copy-executable-binary
+
+RUN apt-get update
+RUN apt-get -qy install procps sysstat
+
 WORKDIR /app
-COPY --from=build-stage /app/http_server_sys_load /app/http_server_sys_load
-EXPOSE 8888
+COPY --from=build-from-code /app/http_server_sys_load /app/http_server_sys_load
+EXPOSE 21864
 CMD ["/app/http_server_sys_load"]
